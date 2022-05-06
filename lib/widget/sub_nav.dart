@@ -9,7 +9,7 @@ import '../util/navigator_util.dart';
 class SubNav extends StatelessWidget {
   final List<CommonModel> subNavList;
 
-  const SubNav({required Key key, required this.subNavList}) : super(key: key);
+  const SubNav({Key key, @required this.subNavList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class SubNav extends StatelessWidget {
               WebView(
                 url: model.url,
                 statusBarColor: model.statusBarColor,
-                hideAppBar: model.hideAppBar, title: 'webview',
+                hideAppBar: model.hideAppBar,
               ));
         },
         child: Column(

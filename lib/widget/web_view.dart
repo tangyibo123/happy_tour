@@ -12,11 +12,11 @@ class WebView extends StatefulWidget {
   final bool hideAppBar;
   final bool backForbid;
 
-  WebView({
-        required this.url,
-        required this.statusBarColor,
-        required this.title,
-        required this.hideAppBar,
+  WebView(
+      {this.url,
+        this.statusBarColor,
+        this.title,
+        this.hideAppBar,
         this.backForbid = false}) {
     if (url != null && url.contains('ctrip.com')) {
       //fix 携程H5 http://无法打开问题
@@ -30,9 +30,9 @@ class WebView extends StatefulWidget {
 
 class _WebViewState extends State<WebView> {
   final webviewReference = FlutterWebviewPlugin();
-  late StreamSubscription<String> _onUrlChanged;
-  late StreamSubscription<WebViewStateChanged> _onStateChanged;
-  late StreamSubscription<WebViewHttpError> _onHttpError;
+  StreamSubscription<String> _onUrlChanged;
+  StreamSubscription<WebViewStateChanged> _onStateChanged;
+  StreamSubscription<WebViewHttpError> _onHttpError;
   bool exiting = false;
 
   @override

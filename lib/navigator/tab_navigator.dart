@@ -70,7 +70,11 @@ class _TabNavigatorState extends State<TabNavigator>{
           icon,
           color: _activeColor,
         ),
-        label: label
+        title: Text(
+          label,
+          style: TextStyle(
+              color: _currentIndex != index ? _defaultColor : _activeColor),
+        )
     );
   }
 

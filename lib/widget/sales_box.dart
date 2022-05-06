@@ -10,7 +10,7 @@ import '../util/navigator_util.dart';
 class SalesBox extends StatelessWidget {
   final SalesBoxModel salesBox;
 
-  const SalesBox({required Key key, required this.salesBox}) : super(key: key);
+  const SalesBox({Key key, @required this.salesBox}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class SalesBox extends StatelessWidget {
                   onTap: () {
                     NavigatorUtil.push(
                       context,
-                      WebView(url: salesBox.moreUrl, title: '更多活动', hideAppBar: false, statusBarColor: 'ffffff',),
+                      WebView(url: salesBox.moreUrl, title: '更多活动'),
                     );
                   },
                   child: Text(
@@ -109,7 +109,7 @@ class SalesBox extends StatelessWidget {
               WebView(
                 url: model.url,
                 statusBarColor: model.statusBarColor,
-                hideAppBar: model.hideAppBar, title: 'appbar',
+                hideAppBar: model.hideAppBar,
               ));
         },
         child: Container(

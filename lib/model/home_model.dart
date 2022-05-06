@@ -12,7 +12,7 @@ import 'package:happy_tour/model/common_model.dart';
 import 'package:happy_tour/model/grid_nav_model.dart';
 
 class HomeModel {
-  late final ConfigModel config;
+  final ConfigModel config;
   final List<CommonModel> bannerList;
   final List<CommonModel> localNavList;
   final List<CommonModel> subNavList;
@@ -20,12 +20,12 @@ class HomeModel {
   final SalesBoxModel salesBox;
 
   HomeModel({
-        required this.config,
-        required this.bannerList,
-        required this.localNavList,
-        required this.subNavList,
-        required this.gridNav,
-        required this.salesBox});
+        this.config,
+        this.bannerList,
+        this.localNavList,
+        this.subNavList,
+        this.gridNav,
+        this.salesBox});
 
   factory HomeModel.fromJson(Map<String, dynamic> json) {
     var localNavListJson = json['localNavList'] as List;

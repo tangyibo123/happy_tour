@@ -14,18 +14,18 @@ class SearchBar extends StatefulWidget {
   final void Function() inputBoxClick;
   final ValueChanged<String> onChanged;
 
-  const SearchBar({
-        required Key key,
+  const SearchBar(
+      {Key key,
         this.enabled = true,
-        required this.hideLeft,
+        this.hideLeft,
         this.searchBarType = SearchBarType.normal,
-        required this.hint,
-        required this.defaultText,
-        required this.leftButtonClick,
-        required this.rightButtonClick,
-        required this.speakClick,
-        required this.inputBoxClick,
-        required this.onChanged})
+        this.hint,
+        this.defaultText,
+        this.leftButtonClick,
+        this.rightButtonClick,
+        this.speakClick,
+        this.inputBoxClick,
+        this.onChanged})
       : super(key: key);
 
   @override

@@ -7,7 +7,7 @@ import '../util/navigator_util.dart';
 class LocalNav extends StatelessWidget {
   final List<CommonModel> localNavList;
 
-  const LocalNav({required Key key, required this.localNavList}) : super(key: key);
+  const LocalNav({Key key, @required this.localNavList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class LocalNav extends StatelessWidget {
             WebView(
               url: model.url,
               statusBarColor: model.statusBarColor,
-              hideAppBar: model.hideAppBar, title: 'webview',
+              hideAppBar: model.hideAppBar,
             ));
       },
       child: Column(

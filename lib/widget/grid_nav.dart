@@ -1,19 +1,15 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_tour/model/common_model.dart';
+import 'package:happy_tour/model/grid_nav_model.dart';
+import 'package:happy_tour/util/navigator_util.dart';
 import 'package:happy_tour/widget/web_view.dart';
-
-import '../model/common_model.dart';
-import '../model/grid_nav_model.dart';
-import '../util/navigator_util.dart';
 
 ///网格卡片
 class GridNav extends StatelessWidget {
   final GridNavModel gridNavModel;
 
-  const GridNav({required Key key, required this.gridNavModel}) : super(key: key);
+  const GridNav({Key key, @required this.gridNavModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
