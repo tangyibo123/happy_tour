@@ -2,7 +2,7 @@
 
 一个基于 Flutter 1.20 的出行类✈App，代码跟写CodeCrazyBoy大神，大部分接口调用自携程App，在此感谢！部分功能有待进一步完善~
 
-![Screenshot_1651838878.png](https://github.com/tangyibo123/happy_tour/img/Screenshot_1651838878.png)
+![Screenshot_1651838878.png](img/Screenshot_1651838878.png)
 ## 项目信息
 
 框架：Flutter1.20+Android原生 混合开发
