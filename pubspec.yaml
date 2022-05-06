@@ -38,6 +38,10 @@ dependencies:
   # 轮播插件
   card_swiper: ^2.0.3
 
+  #
+  flutter_webview_plugin:
+    git: https://gitee.com/tang-yibo/flutter_webview_plugin.git
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,7 +65,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - json/home_page.json
+    - json/note_page.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

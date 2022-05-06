@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
+import '../model/common_model.dart';
+import '../model/grid_nav_model.dart';
+import '../model/sales_box_model.dart';
+import '../util/navigator_util.dart';
+import '../widget/grid_nav.dart';
+import '../widget/local_nav.dart';
+import '../widget/sales_box.dart';
+import '../widget/search_bar.dart';
+import '../widget/sub_nav.dart';
+import '../widget/web_view.dart';
+
 const APPBAR_SCROLL_OFFSET = 100;
 
 class HomePage extends StatefulWidget{
@@ -10,57 +21,48 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage>{
   double appBarAlpha = 0;
+  List<CommonModel> localNavList = [];
+  List<CommonModel> bannerList = [];
+  List<CommonModel> subNavList = [];
+  late GridNavModel gridNavModel;
+  late SalesBoxModel salesBoxModel;
 
-  List _imageUrls = [
-    'https://pages.ctrip.com/commerce/promote/20180718/yxzy/img/640sygd.jpg',
-    'https://pages.ctrip.com/commerce/promote/20180718/yxzy/img/640sygd.jpg',
-    'https://pages.ctrip.com/commerce/promote/20180718/yxzy/img/640sygd.jpg',
-  ];
-  final PageController _controller = PageController(
-    initialPage: 0,
-  );
+  bool _loading = true;
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body:  MediaQuery.removePadding(
-        removeTop: true,
-        context: context,
-        child: NotificationListener(
-          onNotification: (scrollNotification) {
-            if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth ==0){
-              //正在滚动且滚动的是第0个元素 ListView时，触发滚动事件
-              _onScroll(scrollNotification.metrics.pixels); //传入滚动的距离
-            }
-            return false;
-          },
-          child: ListView(
+      backgroundColor: const Color(0xfff2f2f2),
+      body:
+          Stack(
             children: <Widget>[
-              Container(
-              height: 160,
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index){
-                  return Image.network(_imageUrls[index], fit: BoxFit.fill,);},
-                itemCount: _imageUrls.length,
-                autoplay: true,
-                pagination: SwiperPagination(), //指示器
-                control: SwiperControl(),
+              MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: NotificationListener(
+                      onNotification: (scrollNotification) {
+                        if (scrollNotification is ScrollUpdateNotification &&
+                            scrollNotification.depth ==0){
+                          //正在滚动且滚动的是第0个元素 ListView时，触发滚动事件
+                          _onScroll(scrollNotification.metrics.pixels); //传入滚动的距离
+                        }
+                        return false;
+                      },
+                      child: _listView,
+                  )
               ),
-            ),
-              Container(
-                height: 880,
-                child: ListTile(title: Text('leyou'),),
-            )
+              _appBar,
+              //_appBar; //自定义的渐变appBar
             ],
           )
-       )
-      )
     );
     throw UnimplementedError();
   }
 
-  void _onScroll(offset) {
+  // 滚动时间
+  _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
     if (alpha < 0) {
       alpha = 0;
@@ -73,6 +75,103 @@ class _HomePageState extends State<HomePage>{
     print(appBarAlpha);
   }
 
+  Widget get _listView {
+    return ListView(
+      children: <Widget>[
+        _banner,
+        Padding(
+          padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+          child: LocalNav(localNavList: localNavList, key: ValueKey('LocalNav'),),
+        ),
+        Padding(
+            padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+            child: GridNav(gridNavModel: gridNavModel, key: ValueKey('GridNav'),)),
+        Padding(
+            padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+            child: SubNav(subNavList: subNavList, key: ValueKey('SubNav'),)),
+        Padding(
+            padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+            child: SalesBox(salesBox: salesBoxModel, key: ValueKey('SalesBox'),)),
+      ],
+    );
+  }
+
+  Widget get _appBar {
+    return Column(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              //AppBar渐变遮罩背景
+              colors: [Color(0x66000000), Colors.transparent],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            height: 80.0,
+            decoration: BoxDecoration(
+              color: Color.fromARGB((appBarAlpha * 255).toInt(), 255, 255, 255),
+            ),
+            child: SearchBar(
+              searchBarType: appBarAlpha > 0.2
+                  ? SearchBarType.homeLight
+                  : SearchBarType.home,
+              inputBoxClick: _jumpToSearch,
+              speakClick: _jumpToSpeak,
+              defaultText: SEARCH_BAR_DEFAULT_TEXT,
+              leftButtonClick: () {},
+            ),
+          ),
+        ),
+        Container(
+            height: appBarAlpha > 0.2 ? 0.5 : 0,
+            decoration: BoxDecoration(
+                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]))
+      ],
+    );
+  }
+
+  Widget get _banner {
+    return Container(
+      height: 160,
+      child: Swiper(
+        itemCount: bannerList.length,
+        autoplay: true,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              CommonModel model = bannerList[index];
+              NavigatorUtil.push(
+                  context,
+                  WebView(
+                      url: model.url,
+                      title: model.title,
+                      hideAppBar: model.hideAppBar, statusBarColor: 'ffffff00',));
+            },
+            child: Image.network(
+              bannerList[index].icon,
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        pagination: SwiperPagination(),
+      ),
+    );
+  }
+
+  _jumpToSearch() {
+    NavigatorUtil.push(
+        context,
+        SearchPage(
+          hint: SEARCH_BAR_DEFAULT_TEXT,
+        ));
+  }
+
+  _jumpToSpeak() {
+    NavigatorUtil.push(context, SpeakPage());
+  }
 
 }
 
