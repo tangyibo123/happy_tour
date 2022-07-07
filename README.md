@@ -2,7 +2,8 @@
 
 一个基于 Flutter 1.20 的出行类✈App，代码跟写CodeCrazyBoy大神，大部分接口调用自携程App，在此感谢！部分功能有待进一步完善~
 
-![Screenshot_1651838878.png](https://cdn.nlark.com/yuque/0/2022/png/2547193/1651840119186-2ae1aaa7-3992-460d-8ec5-345278027952.png#clientId=ua71fc47d-21a2-4&crop=0&crop=0&crop=1&crop=1&from=ui&height=557&id=u88c2328a&margin=%5Bobject%20Object%5D&name=Screenshot_1651838878.png&originHeight=3040&originWidth=1440&originalType=binary&ratio=1&rotation=0&showTitle=false&size=1425596&status=done&style=none&taskId=ucb866314-3caf-4c38-b4ae-e0fbe48dab9&title=&width=264)
+<img src="img/Screenshot_1651838878.png" width="30%" ></img>
+
 ## 项目信息
 
 框架：Flutter1.20+Android原生 混合开发
